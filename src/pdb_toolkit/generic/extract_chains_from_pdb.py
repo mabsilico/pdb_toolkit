@@ -6,8 +6,7 @@
 
 from pymol import cmd
 
-from pdb_toolkit.fixer.renumber_pdb import renumber_pdb
-from pdb_toolkit.generic.keep_only_atoms import keep_only_atom_lines
+from pdb_toolkit.fixer import renumber_pdb, keep_only_atom_lines
 
 
 def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain=None,

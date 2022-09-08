@@ -20,7 +20,8 @@ def sort_atoms(in_pdb_file, out_pdb_file=None):
     for model in structure:
         for chain in model:
             for residue in chain:
-                residue.sort()
+                residue.child_list.sort()
+
 
     # save the new structure
     if not out_pdb_file:

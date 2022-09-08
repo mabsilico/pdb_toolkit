@@ -3,12 +3,15 @@
 # @Author  : Raouf KESKES
 # @Email   : raouf.keskes@mabsilico.com
 # @File    : get_pdb_sequence.py
+import os.path
+import tempfile
 
 from Bio.PDB import PDBParser
-from constants import d3to1
+from pdb_toolkit.constants import d3to1
+from pdb_toolkit.fixer import keep_only_atom_lines
 
 
-def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=True):
+def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=False):
     """
     this method return pdb sequence for each chain in chains
     @param in_pdb_file: (str) path to the input pdb file
@@ -27,7 +30,12 @@ def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=True):
     res_pos = 0
     sequences = {}
     parser = PDBParser()
-    structure = parser.get_structure(in_pdb_file, in_pdb_file)
+
+    # remove all the noisy lines such as HETATOMS etc.
+    tmp_in_pdb_file = os.path.join(tempfile.gettempdir(), "tmp.pdb")
+    keep_only_atom_lines(in_pdb_file, tmp_in_pdb_file)
+
+    structure = parser.get_structure(tmp_in_pdb_file, tmp_in_pdb_file)
     if chains:
         chains = set(chains)
     # iterate over structure
@@ -37,7 +45,9 @@ def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=True):
             chain_name = chain.get_id()
             if chains and chain_name not in chains:
                 continue
-            sequences[chain.get_id()] = ["_"] * 1000
+            # get last residue of the chain to fix the sequence length
+            last_pos = ([res for res in chain.get_residues()][-1]).get_id()[1]
+            sequences[chain.get_id()] = ["_"] * last_pos
             for residue in chain:
                 # fetch the residue
                 resname = residue.get_resname()
@@ -49,4 +59,8 @@ def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=True):
             # concat residues
             sequences[chain_name] = "".join(sequences[chain_name])[:res_pos]
         break
+
+    if ignore_missing:
+        return {chain: seq.replace("_", "") for chain, seq in sequences.items()}
+
     return sequences
