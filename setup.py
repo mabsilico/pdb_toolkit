@@ -11,6 +11,8 @@ setup(
     author_email='raouf.keskes@mabsilico.com',
     description='a project to manipulate pdb files',
     python_requires='>=3.6',
+    install_requires=['biopython',
+                      'wget'],
     classifiers=[
             "Programming Language :: Python :: 3",
             "License :: OSI Approved :: MIT License",

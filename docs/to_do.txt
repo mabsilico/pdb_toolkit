@@ -1,0 +1,5 @@
+- split_residues_surface_boundary_core
+- alignments
+- optimize chain extractions which was time consuming for a bunch of files
+- pdb_split
+- if re.fullmatch("^[0-9][a-zA-Z0-9]{3}$", AbAg)  download pdb id verification
