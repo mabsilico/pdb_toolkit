@@ -19,4 +19,4 @@ def concat_pdbs(in_pdb_files, out_pdb_file):
         list_pdb_files = in_pdb_files
 
     # print("cat {} >> {}".format(" ".join(list_pdb_files), out_pdb_file))
-    os.system("cat {} >> {}".format(" ".join(list_pdb_files), out_pdb_file))
+    os.system("cat {} > {}".format(" ".join(list_pdb_files), out_pdb_file))
