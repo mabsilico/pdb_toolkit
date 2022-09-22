@@ -12,6 +12,7 @@ a project to manipulate pdb files
 2) **pdbfixer** ``` conda install -c conda-forge pdbfixer ```
 2) **biopython**  ``` conda install -c conda-forge biopython ```
 3) **pymol**  ``` conda install -c schrodinger pymol ```
+4) **reduce** ``` conda install -c mx reduce ```
 4) **wget**  ```pip install wget```
 
 ## Installation
@@ -27,36 +28,64 @@ the library is divided into 3 packages
 
 
 **1) generic**
-```python
-from pdb_toolkit.generic import download_pdb, extract_chains_from_pdb
 
+```python
+from pdb_toolkit.generic import download_pdb, extract_chains_from_pdb, concat_pdbs, align
 
 download_pdb(pdb_id="7nd4", output_dir="./Downloads/", overwrite=True)
 
 extract_chains_from_pdb(
-        in_pdb_file="./Downloads/7nd4.pdb",
-        in_chains=["H", "L"],
-        out_pdb_file="./Downloads/7nd4_antibody.pdb",
-        out_chain=["A"],
-        keep_only_atoms=True,
-        renumber=True
-    )
+    in_pdb_file="./Downloads/7nd4.pdb",
+    in_chains=["H", "L"],
+    out_pdb_file="/PATH/TO/OUTDIR/7nd4_antibody.pdb",
+    out_chain=["A"],
+    keep_only_atoms=True,
+    renumber=True
+)
+
+# concatenating a list of pdb files
+root_path = "PATH/TO/PDBs/"
+concat_pdbs(
+    in_pdb_files=[root_path + "antibody_1.pdb", root_path + "target_1.pdb"],
+    out_pdb_file="/PATH/TO/OUTDIR/complex_1_concat.pdb"
+)
+# concatenating an entire folder of pdbs
+to_concat_path = "PATH/TO/TO_CONCAT_PDBs/pdb_chains/"
+concat_pdbs(
+    in_pdb_files=to_concat_path,
+    out_pdb_file="/PATH/TO/OUTDIR/complex_1_concat.pdb"
+)
+
+rmsd = align(
+    src_pdb_file="/PATH/TO/complex_1.pdb",
+    src_chains=["A"],
+    dst_pdb_file="/PATH/TO/complex_2.pdb",
+    dst_chains=["A"],
+    out_pdb_file="/PATH/TO/OUTDIR/out_aligned.pdb"
+)
+print("RMSD : {} Å".format(rmsd))
+
+
 ```
 
 **2) fixer**
 ```python
 
-from pdb_toolkit.fixer import fix_pdb, sort_atoms, renumber_pdb, keep_only_atom_lines
+from pdb_toolkit.fixer import fix_pdb, sort_atoms, renumber_pdb, keep_only_atom_lines, protonate
 
 # fix missing residues, atoms and other pdb problems etc.
 fix_pdb(in_pdb_file="./Downloads/7nd4.pdb",
-        out_pdb_file="./Downloads/7nd4_A.pdb",
+        out_pdb_file="./Downloads/7nd4_A_fixed.pdb",
         chains_to_keep=["A"],
         overwrite=False,
         verbose=True)
 
+#protonate 
+protonate(in_pdb_file="./Downloads/7nd4_A_fixed.pdb",
+          out_pdb_file="./Downloads/7nd4_A_fixed_protonated.pdb")
+
 # remove all meta data lines from pdb file and keep exclusively ATOM lines
-keep_only_atom_lines(in_pdb_file="./Downloads/7nd4_A_fixed.pdb",
+keep_only_atom_lines(in_pdb_file="./Downloads/7nd4_A_fixed_protonated.pdb",
                      out_pdb_file="./Downloads/7nd4_A_only_atoms.pdb")
 
 # sort atoms inside the pdb
