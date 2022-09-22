@@ -100,6 +100,7 @@ renumber_pdb(in_pdb_file="./Downloads/7nd4_A_only_atoms_sorted.pdb",
 
 **3) parser**
 
+get_pdb_sequence : 
 ```python
 from pdb_toolkit.parser import get_pdb_sequence
 
@@ -118,4 +119,42 @@ print(sequences)
 {'H': 'QESGPGLVKPSQTLSLTCTVSGGSISSGSYNWTWIRQPAGKGLEWIGRIYNSGSTNYNPSLKSRVTISVDTSKNQLSLKVRSVTAADTAVYYCARHCSGGTCYPKYYYGMDVWGQGTTVTVSSA',
  'L': 'LTQPPSVSEAPRQRVTISCSGSSSNIGNNAVNWYQQFPGKAPKLLIYYDDLLPSGVSDRFSGSKSGTSASLAISGVQSEDEADYYCAAWDDSLNVVVFGGGTKGQP'}
 """
+```
+
+
+detect steric clashes:
+```python
+
+from pdb_toolkit.parser import detect_steric_clash
+
+
+res = detect_steric_clash("/PATH/TO/complex_ATI_285_Ab14.pdb",
+                          different_chain_only=True,
+                          first_occurrence=False)
+
+for steric_clash in res:
+    print(steric_clash)
+
+"""
+(<Residue TYR het=  resseq=112 icode= >, <Residue SER het=  resseq=55 icode= >)
+(<Residue TYR het=  resseq=112 icode= >, <Residue ILE het=  resseq=56 icode= >)
+(<Residue ASN het=  resseq=176 icode= >, <Residue TRP het=  resseq=315 icode= >)
+(<Residue THR het=  resseq=179 icode= >, <Residue ALA het=  resseq=59 icode= >)
+(<Residue THR het=  resseq=179 icode= >, <Residue HIS het=  resseq=61 icode= >)
+
+"""
+```
+
+split pdb chains : 
+```python
+
+from pdb_toolkit.generic import download_pdb
+from pdb_toolkit.parser import split_chains
+
+
+download_pdb(pdb_id="4o51", output_dir="/PATH/TO/")
+split_chains(
+    in_pdb_file="/PATH/TO/4o51.pdb",
+    output_dir="/PATH/TO/OUTDIR/"
+)
 ```
