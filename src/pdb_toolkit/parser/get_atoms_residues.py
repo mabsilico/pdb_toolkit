@@ -6,7 +6,7 @@
 from Bio.PDB import PDBParser
 
 
-def get_atoms_residues(pdb_path, sort_residues=True):
+def get_atoms_residues(in_pdb_file, sort_residues=True):
     """
     this method parse sequentially (line by line) a pdb collecting information about each line (atoms and residues)
      ------------
@@ -16,7 +16,7 @@ def get_atoms_residues(pdb_path, sort_residues=True):
         atom_info N, (-20.586  36.140  66.200  1.00 61.84), 1
         residue_info ASN, T, 5
      ------------
-    @param pdb_path: (str) default=None, path to the pdb file
+    @param in_pdb_file: (str) path to the pdb file
     @param sort_residues: (boolean) whether to sort residues or not based on their position on the pdb
     @return: [atom_data_1, ...,  atom_data_N]
              [residue_data_1, ...,  residue_data_N]
@@ -27,7 +27,7 @@ def get_atoms_residues(pdb_path, sort_residues=True):
     """
     parser = PDBParser()
     atoms_data, residues_data = [], []
-    structure = parser.get_structure(pdb_path, pdb_path)
+    structure = parser.get_structure(in_pdb_file, in_pdb_file)
     for i, atom in enumerate(structure.get_atoms()):
         residue = atom.get_parent()
         # atom name, 3D-coordinates, position in PDB

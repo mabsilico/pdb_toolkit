@@ -14,7 +14,7 @@ import wget
 from Bio.PDB import PDBList
 
 
-def download_pdb(pdb_id: str, output_dir: str, overwrite=False):
+def download_pdb(pdb_id: str, output_dir: str, overwrite: bool = False):
     """
     download a pdb from its pdb_id using 3 different servers :
        - "https://files.rcsb.org"
@@ -58,7 +58,6 @@ def download_pdb(pdb_id: str, output_dir: str, overwrite=False):
                     return pdb_path
 
                 except Exception as err:
-                    raise Exception("Download failed ! "+str(error))
+                    raise Exception("Download failed ! " + str(error))
     else:
         raise ValueError("pdb code format error ! please type a correct pdb code like '7f4h', '4O51', etc. ")
-
