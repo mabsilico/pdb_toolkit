@@ -8,6 +8,8 @@
 import glob
 import os
 
+from pdb_toolkit.fixer import keep_only_atom_lines
+
 
 def concat_pdbs(in_pdb_files, out_pdb_file):
     list_pdb_files = ""
@@ -20,3 +22,4 @@ def concat_pdbs(in_pdb_files, out_pdb_file):
 
     # print("cat {} >> {}".format(" ".join(list_pdb_files), out_pdb_file))
     os.system("cat {} > {}".format(" ".join(list_pdb_files), out_pdb_file))
+    keep_only_atom_lines(out_pdb_file)
