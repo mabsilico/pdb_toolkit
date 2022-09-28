@@ -9,8 +9,8 @@ from subprocess import Popen, PIPE
 def protonate(in_pdb_file, out_pdb_file=None):
     """
     protonate (i.e., add hydrogens/protons H+) to a pdb
-    @param in_pdb_file: (str) path to pdb input file
-    @param out_pdb_file: (str) path to pdb input file
+    @param in_pdb_file: (str) path to input pdb file
+    @param out_pdb_file: (str) path to output pdb file
     """
 
     if out_pdb_file is None:

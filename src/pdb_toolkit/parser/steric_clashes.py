@@ -46,7 +46,7 @@ def steric_clash_residues(residue1: Residue, residue2: Residue) -> bool:
 
 
 def detect_steric_clash(in_pdb_file: str, first_occurrence: bool = False,
-                        different_chain_only: bool = True):
+                        different_chain_only: bool = True):  # -> List[Tuple[Residue, Residue]]:
     """
     # -> List[Tuple[Residue, Residue]]:
     find all the steric clashes between residues in a pdb file

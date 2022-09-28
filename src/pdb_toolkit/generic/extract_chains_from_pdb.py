@@ -35,6 +35,9 @@ def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain
     cmd.reinitialize()
     cmd.load(out_pdb_file)
 
+    if in_chains == out_chain:
+        out_chain = None
+
     if out_chain:
         out_chains_str = "chain " + out_chain
         cmd.alter(in_chains_str, "chain='{}'".format(out_chain))

@@ -11,12 +11,14 @@ from typing import List
 from pymol import cmd
 
 
-def align(src_pdb_file: str, src_chains: List[str] = None, dst_pdb_file: str = None, dst_chains=None,
-          out_pdb_file=None):
+def align(src_pdb_file: str, dst_pdb_file: str, src_chains: List[str] = None,
+          dst_chains: List[str] = None, out_pdb_file: str = None) -> float:
     """
+
     @param src_pdb_file: (str) path to the mobile pdb file
-    @param src_chains:  list[str] chains selection for the alignment if needed
     @param dst_pdb_file: (str) path to the target/destination/static pdb file
+    @param src_chains:  list[str] source chains selection for the alignment
+    @param dst_chains: list[str] destination chains selection for the alignment
     @param out_pdb_file: (str) path to the output pdb file that saves the "aligned" src_pdb_file
     @return: (float) rmsd distance in angstrom between the "aligned" src_pdb_file and dest_pdb_file
     """
