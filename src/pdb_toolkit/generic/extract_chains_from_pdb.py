@@ -35,7 +35,8 @@ def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain
     cmd.reinitialize()
     cmd.load(out_pdb_file)
 
-    if in_chains == out_chain:
+    # user introduce the same chain selection as input and output
+    if len(in_chains) == 1 and in_chains[0] == out_chain:
         out_chain = None
 
     if out_chain:
@@ -44,8 +45,12 @@ def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain
         cmd.save(filename=out_pdb_file, selection=out_chains_str)
         cmd.reinitialize()
 
+    cmd.reinitialize()
+
     if keep_only_atoms:
         keep_only_atom_lines(in_pdb_file=out_pdb_file, out_pdb_file=out_pdb_file)
 
     if renumber:
         renumber_pdb(out_pdb_file)
+
+
