@@ -38,7 +38,7 @@ extract_chains_from_pdb(
     in_pdb_file="./Downloads/7nd4.pdb",
     in_chains=["H", "L"],
     out_pdb_file="/PATH/TO/OUTDIR/7nd4_antibody.pdb",
-    out_chain=["A"],
+    out_chain="A",
     keep_only_atoms=True,
     renumber=True
 )
