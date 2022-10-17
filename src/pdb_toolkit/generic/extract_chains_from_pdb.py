@@ -6,13 +6,14 @@
 
 from pymol import cmd
 
-from pdb_toolkit.fixer import renumber_pdb, keep_only_atom_lines
+from pdb_toolkit.fixer import renumber_pdb, keep_only_atom_lines, sort_atoms, protonate_pdb
 
 
 def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain=None,
-                            keep_only_atoms=True, renumber=False):
+                            keep_only_atoms=True, renumber=False, protonate=True, sort=True):
     """
     the method is used to extract chains from an input pdb and save them in a custom way
+
     @param in_pdb_file: (str) path to pdb input file
     @param in_chains: (list of str) the list of chains to retain from the in_pdb_file  ["V", "H"]
     @param out_pdb_file: (str) path to pdb output file
@@ -21,6 +22,8 @@ def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain
      default=True
     @param renumber: (boolean) to reindex the residues from 1 and increment for all the successive residues chain by
      chain, it is highly recommended to use it when ou set  'out_chain' parameter, default=False
+    @param protonate: (boolean) protonate (i.e., add hydrogens/protons H+) to a pdb
+    @param sort: (boolean) resort atoms for each residue in a correct order like N, CA, C, O, etc.vss
     """
 
     # init
@@ -50,7 +53,13 @@ def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain
     if keep_only_atoms:
         keep_only_atom_lines(in_pdb_file=out_pdb_file, out_pdb_file=out_pdb_file)
 
+    if protonate:
+        protonate_pdb(out_pdb_file)
+
     if renumber:
         renumber_pdb(out_pdb_file)
+
+    if sort:
+        sort_atoms(out_pdb_file)
 
 

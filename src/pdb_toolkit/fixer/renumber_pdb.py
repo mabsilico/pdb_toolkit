@@ -40,6 +40,7 @@ def renumber_pdb(in_pdb_file, out_pdb_file=None):
                 # print((curr_chain, curr_res, str(curr_idx).rjust(4)))
                 new_line = list(line)
                 new_line[22:26] = list(str(curr_idx).rjust(4))
+                new_line[26] = " "
                 new_line = "".join(new_line)
 
                 new_lines.append(new_line)
