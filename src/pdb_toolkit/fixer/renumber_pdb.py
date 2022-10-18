@@ -19,15 +19,16 @@ def renumber_pdb(in_pdb_file, out_pdb_file=None):
     new_lines = []
     with open(in_pdb_file, "r") as f:
         lines = f.readlines()
-        prev_chain, prev_res, prev_idx, prev_pdb_pos = "", "", 1, 1
-        curr_chain, curr_res, curr_pdb_pos = "", "", 0
+        prev_chain, prev_res, prev_letter, prev_idx, prev_pdb_pos = "", "", "", 1, 1
+        curr_chain, curr_res, curr_pdb_pos, curr_letter = "", "", 0, ""
         for line in lines:
             if line.startswith("ATOM"):
-                prev_chain, prev_res, prev_pdb_pos = curr_chain, curr_res, curr_pdb_pos
-                curr_res, curr_chain, curr_pdb_pos = line[17:21], line[21], int(line[22:26])
+                prev_chain, prev_res, prev_pdb_pos, prev_letter = curr_chain, curr_res, curr_pdb_pos, curr_letter
+                curr_res, curr_chain, curr_pdb_pos, curr_letter = line[17:21], line[21], int(line[22:26]), line[26]
 
-                # we could just consider tje pdb position to assume same residue but it is ok to endorse this condition
-                same_residue = (curr_res == prev_res and curr_pdb_pos == prev_pdb_pos)
+                # we could just consider the pdb position to assume same residue but it is ok to endorse this condition
+                same_residue = (curr_res == prev_res and curr_pdb_pos == prev_pdb_pos
+                                and curr_letter == prev_letter)
 
                 if curr_chain == prev_chain and same_residue:
                     curr_idx = prev_idx
