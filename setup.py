@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='pdb_toolkit',
     version='0.2',
-    packages=['pdb_toolkit', 'pdb_toolkit.fixer', 'pdb_toolkit.parser', 'pdb_toolkit.generic'],
+    packages=['pdb_toolkit', 'pdb_toolkit.editor', 'pdb_toolkit.parser', 'pdb_toolkit.generic'],
     package_dir={'': 'src'},
     url='https://github.com/raoufkeskes/pdb_toolkit',
     license='MIT Licence',

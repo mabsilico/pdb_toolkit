@@ -8,7 +8,7 @@ import tempfile
 
 from Bio.PDB import PDBParser
 from pdb_toolkit.constants import d3to1
-from pdb_toolkit.fixer import keep_only_atom_lines
+from pdb_toolkit.editor import keep_only_atom_lines
 
 
 def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=False):

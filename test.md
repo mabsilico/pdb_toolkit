@@ -10,21 +10,17 @@ a project to manipulate pdb files
 
 1) **Python >= 3.6**
 2) **pdbfixer** ``` conda install -c conda-forge pdbfixer ```
-2) **biopython**  ``` conda install -c conda-forge biopython ```
-3) **pymol**  ``` conda install -c schrodinger pymol ```
-4) **reduce** ``` conda install -c mx reduce ```
-4) **wget**  ```pip install wget```
+3) **biopython**  ``` conda install -c conda-forge biopython ```
+4) **pymol**  ``` conda install -c schrodinger pymol ```
+5) **reduce** ``` conda install -c mx reduce ```
+6) **sklearn** ``` conda install -c conda-forge scikit-learn```
+7) **wget**  ```pip install wget```
+
 
 ## Installation
 ```
-git clone https://github.com/raoufkeskes/pdb_toolkit
-cd pdb_toolkit
-pip install .
+git clone https://github.com/raoufkeskes/pdb_toolkit && pip install ./pdb_toolkit/. && rm -rf pdb_toolkit
 ```
-
-## Usage
-
-the library is divided into 3 packages 
 
 
 **1) generic**
@@ -64,15 +60,13 @@ rmsd = align(
     out_pdb_file="/PATH/TO/OUTDIR/out_aligned.pdb"
 )
 print("RMSD : {} Å".format(rmsd))
-
-
 ```
 
-**2) fixer**
+**2) editor**
 
 ```python
 
-from pdb_toolkit.editor import fix_pdb, sort_atoms, renumber_pdb, keep_only_atom_lines, protonate
+from pdb_toolkit.editor import fix_pdb, sort_atoms, renumber_pdb, keep_only_atom_lines, protonate_pdb, unprotonate_pdb
 
 # fix missing residues, atoms and other pdb problems etc.
 fix_pdb(in_pdb_file="./Downloads/7nd4.pdb",
@@ -81,9 +75,13 @@ fix_pdb(in_pdb_file="./Downloads/7nd4.pdb",
         overwrite=False,
         verbose=True)
 
-# protonate 
-protonate(in_pdb_file="./Downloads/7nd4_A_fixed.pdb",
-          out_pdb_file="./Downloads/7nd4_A_fixed_protonated.pdb")
+# unprotonate
+unprotonate_pdb(in_pdb_file="./Downloads/7nd4_A_fixed.pdb",
+                out_pdb_file="./Downloads/7nd4_A_fixed_unprotonated.pdb")
+
+# protonate
+protonate_pdb(in_pdb_file="./Downloads/7nd4_A_fixed.pdb",
+              out_pdb_file="./Downloads/7nd4_A_fixed_protonated.pdb")
 
 # remove all meta data lines from pdb file and keep exclusively ATOM lines
 keep_only_atom_lines(in_pdb_file="./Downloads/7nd4_A_fixed_protonated.pdb",
@@ -101,7 +99,7 @@ renumber_pdb(in_pdb_file="./Downloads/7nd4_A_only_atoms_sorted.pdb",
 
 **3) parser**
 
-get_pdb_sequence : 
+get_pdb_sequence :
 ```python
 from pdb_toolkit.parser import get_pdb_sequence
 
@@ -146,7 +144,7 @@ for steric_clash in res:
 """
 ```
 
-split pdb chains : 
+split pdb chains :
 ```python
 
 from pdb_toolkit.generic import download_pdb
@@ -158,7 +156,22 @@ split_chains(
     in_pdb_file="/PATH/TO/4o51.pdb",
     output_dir="/PATH/TO/OUTDIR/"
 )
+
+"""
+/PATH/TO/OUTDIR/
+"""
 ```
 
+fetch central atom and residue from a pdb :
+```python
 
+from pdb_toolkit.parser import get_pdb_centroid
+
+print(get_pdb_centroid("/PATH/TO/4o51.pdb"))
+
+"""
+OUTPUT : (('CA', array([ 29.281,  35.174, -14.168], dtype=float32), 2194),
+ ('ASP', 'H', 77))
+"""
+```
 

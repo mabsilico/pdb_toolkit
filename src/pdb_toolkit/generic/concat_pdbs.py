@@ -8,7 +8,7 @@
 import glob
 import os
 
-from pdb_toolkit.fixer import keep_only_atom_lines
+from pdb_toolkit.editor import keep_only_atom_lines
 
 
 def concat_pdbs(in_pdb_files, out_pdb_file):
