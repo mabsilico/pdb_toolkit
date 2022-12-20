@@ -12,6 +12,7 @@ fixing/repairing a pdb, protonating a pdb, keeping only ATOM lines, sorting atom
 * **parser**: where the tools are dedicated to extract relevant information from a pdb,
 such as extracting a specific chain, getting the sequence,
 
+
 ## Requirements
 
 * **python3**
@@ -42,7 +43,7 @@ git clone https://github.com/raoufkeskes/pdb_toolkit && pip install ./pdb_toolki
 
 pip:
 ```
-pip install pdb-toolkit
+TO DO
 ```
 
 conda:
