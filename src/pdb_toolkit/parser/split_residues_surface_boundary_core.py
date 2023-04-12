@@ -20,7 +20,7 @@ def split_residues_surface_boundary_core(pdb_path):
     p = PDBParser()
     structure = p.get_structure(pdb_path, pdb_path)
     model = structure[0]
-    ss_mapper = {"G": "H", "H": "H", "I": "H", "B": "S", "E": "S", "S": "L", "T": "L", "-": "L"}
+    ss_mapper = {"G": "H", "H": "H", "I": "H", "B": "S", "E": "S", "S": "L", "T": "L", "P": "L", "-": "L"}
     weights = {
         'CYS': 167, 'ASP': 193, 'SER': 155, 'GLN': 225, 'LYS': 236,
         'ILE': 197, 'PRO': 159, 'THR': 172, 'PHE': 240, 'ASN': 195,
