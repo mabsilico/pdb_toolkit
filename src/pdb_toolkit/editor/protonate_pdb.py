@@ -3,31 +3,28 @@
 # @Author  : Raouf KESKES
 # @Email   : raouf.keskes@mabsilico.com
 # @File    : protonate_pdb.py
-from subprocess import Popen, PIPE
+import subprocess
+
+from pdb_toolkit.editor import unprotonate_pdb
 
 
-def protonate_pdb(in_pdb_file, out_pdb_file=None):
+def protonate_pdb(input_pdb_path, output_pdb_path=None):
     """
-    protonate (i.e., add hydrogens/protons H+) to a pdb
-    @param in_pdb_file: (str) path to input pdb file
-    @param out_pdb_file: (str) path to output pdb file
+    Add protons (hydrogens) to a PDB file.
+    :param input_pdb_path: (str) Path to the input PDB file.
+    :param output_pdb_path: (str) Path to the output PDB file. If None, overwrite the input file.
     """
+    if output_pdb_path is None:
+        output_pdb_path = input_pdb_path
 
-    if out_pdb_file is None:
-        out_pdb_file = in_pdb_file
+    # unprotonate in case it is protonated before
+    unprotonate_pdb(input_pdb_path, output_pdb_path)
 
-    # Remove protons first, in case the structure is already protonated using the Trim
-    args = ["reduce", "-Trim", in_pdb_file]
-    p2 = Popen(args, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = p2.communicate()
-    outfile = open(out_pdb_file, "w")
-    outfile.write(stdout.decode('utf-8').rstrip())
-    outfile.close()
+    # Use reduce command to add protons to PDB
+    build_args = ["reduce", "-BUILD", output_pdb_path]
+    proc = subprocess.Popen(build_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = proc.communicate()
 
-    # Now protonate correctly.
-    args = ["reduce", "-BUILD", out_pdb_file]
-    p2 = Popen(args, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = p2.communicate()
-    outfile = open(out_pdb_file, "w")
-    outfile.write(stdout.decode('utf-8'))
-    outfile.close()
+    # Write output to file
+    with open(output_pdb_path, "w") as out_file:
+        out_file.write(stdout.decode('utf-8'))
