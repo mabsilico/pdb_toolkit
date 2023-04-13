@@ -10,7 +10,7 @@ from pdb_toolkit.editor import renumber_pdb, keep_only_atom_lines, sort_atoms, p
 
 
 def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain=None,
-                            keep_only_atoms=False, renumber=False, protonate=False, sort=False):
+                            keep_only_atoms=True, renumber=False, protonate=True, sort=True):
     """
     the method is used to extract chains from an input pdb and save them in a custom way
 
@@ -52,10 +52,10 @@ def extract_chains_from_pdb(in_pdb_file, in_chains, out_pdb_file=None, out_chain
 
     if keep_only_atoms:
         keep_only_atom_lines(in_pdb_file=out_pdb_file, out_pdb_file=out_pdb_file)
-    #
+
     if protonate:
         protonate_pdb(out_pdb_file)
-    #
+
     if renumber:
         renumber_pdb(out_pdb_file)
 

@@ -3,27 +3,23 @@
 # @Author  : Raouf KESKES
 # @Email   : raouf.keskes@mabsilico.com
 # @File    : unprotonate_pdb.py
+from subprocess import Popen, PIPE
 
 
-import subprocess
-
-
-def unprotonate_pdb(input_pdb_path, output_pdb_path=None):
+def unprotonate_pdb(in_pdb_file, out_pdb_file=None):
     """
-    Remove protons (hydrogens) from a PDB file.
-    :param input_pdb_path: (str) Path to the input PDB file.
-    :param output_pdb_path: (str) Path to the output PDB file. If None, overwrite the input file.
+    unprotonate (i.e., remove hydrogens/protons H+) from a pdb
+    @param in_pdb_file: (str) path to input pdb file
+    @param out_pdb_file: (str) path to output pdb file
     """
-    if output_pdb_path is None:
-        output_pdb_path = input_pdb_path
 
-    # Use reduce command to remove protons from PDB
-    reduce_args = ["reduce", "-Trim", input_pdb_path]
-    proc = subprocess.Popen(reduce_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = proc.communicate()
+    if out_pdb_file is None:
+        out_pdb_file = in_pdb_file
 
-    # Write output to file
-    with open(output_pdb_path, "w") as out_file:
-        out_file.write(stdout.decode('utf-8').rstrip())
-
-    return output_pdb_path
+    # Remove protons first, in case the structure is already protonated using the Trim
+    args = ["reduce", "-Trim", in_pdb_file]
+    p2 = Popen(args, stdout=PIPE, stderr=PIPE)
+    stdout, stderr = p2.communicate()
+    outfile = open(out_pdb_file, "w")
+    outfile.write(stdout.decode('utf-8').rstrip())
+    outfile.close()

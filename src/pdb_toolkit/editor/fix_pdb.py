@@ -10,7 +10,7 @@ from openmm.app import PDBFile
 from pdbfixer import PDBFixer
 
 
-def fix_pdb(in_pdb_file, out_pdb_file=None, chains_to_keep=None, overwrite=True, verbose=False):
+def fix_pdb(in_pdb_file, out_pdb_file=None, chains_to_keep=None, overwrite=False, verbose=False):
     """
         fix a pdb sing pdbfixer module :
         - filter useful chains if need
