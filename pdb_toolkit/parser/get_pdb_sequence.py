@@ -5,6 +5,7 @@
 # @File    : get_pdb_sequence.py
 import os.path
 import tempfile
+import uuid
 
 from Bio.PDB import PDBParser
 from pdb_toolkit.constants import d3to1
@@ -31,11 +32,17 @@ def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=False):
     sequences = {}
     parser = PDBParser()
 
+
+    # create a temp directory for tmp intermediate pdb file 
+    tmp_path = os.path.join(tempfile.gettempdir(), str(uuid.uuid1()))
+    os.makedirs(tmp_path, exist_ok=True)
+    
     # remove all the noisy lines such as HETATOMS etc.
-    tmp_in_pdb_file = os.path.join(tempfile.gettempdir(), "tmp.pdb")
+    tmp_in_pdb_file = os.path.join(tmp_path, os.path.basename(in_pdb_file))
     keep_only_atom_lines(in_pdb_file, tmp_in_pdb_file)
 
-    structure = parser.get_structure(tmp_in_pdb_file, tmp_in_pdb_file)
+    structure = parser.get_structure(id=tmp_in_pdb_file,
+                                     file=tmp_in_pdb_file)
     if chains:
         chains = set(chains)
     # iterate over structure
