@@ -1,8 +1,8 @@
 # pdb_toolkit
 pdb_toolkit is an open-source python library that helps to manipulate pdb protein
 files easily and smoothly with an extensive list of functions and tools, the
-purpose of each tool could be inferred by its name, you could check
-[Examples](examples/TODO.md) and [Docs](docs/TODO.md) for more details.
+purpose of each tool could be inferred by its name, you could check the examples below 
+for further details
 
 the library is divided into 3 packages:
 * **generic**: where the tools are general-purpose such as downloading a pdb,

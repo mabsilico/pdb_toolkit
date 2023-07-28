@@ -13,6 +13,7 @@ import numpy as np
 from Bio.PDB import PDBParser
 
 
+
 def get_atom_by_id(residue: Residue, atom_id: str) -> Atom:
     """
     fetch an atom from a residue by its id
@@ -45,6 +46,16 @@ def steric_clash_residues(residue1: Residue, residue2: Residue) -> bool:
     return False
 
 
+def res2str(residue : Residue):
+    """
+     from Bio.PDB.Residue to an str
+    """
+    resname = residue.get_resname()
+    chain = residue.get_parent().get_id()
+    chain_seq_pos = residue.get_id()[1]
+    
+    return f"{resname}_{chain}_{chain_seq_pos}"
+
 def detect_steric_clashes(in_pdb_file: str, first_occurrence: bool = False,
                           different_chain_only: bool = True):  # -> List[Tuple[Residue, Residue]]:
     """
@@ -73,7 +84,8 @@ def detect_steric_clashes(in_pdb_file: str, first_occurrence: bool = False,
                 continue
 
             if steric_clash_residues(residue1, residue2):
-                result.append((residue1, residue2))
+                
+                result.append((res2str(residue1), res2str(residue2)))
                 if first_occurrence:
                     return result
     return result
