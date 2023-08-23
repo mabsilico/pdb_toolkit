@@ -2,7 +2,6 @@ import os
 import unittest
 import warnings
 
-from pdb_toolkit.generic import download_pdb
 from pdb_toolkit.parser import *
 
 
