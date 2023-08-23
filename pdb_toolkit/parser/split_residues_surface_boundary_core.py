@@ -3,6 +3,7 @@
 # @Author  : Raouf KESKES
 # @Email   : raouf.keskes@mabsilico.com
 # @File    : split_residues_surface_boundary_core.py
+
 from Bio.PDB import PDBParser, DSSP
 
 from pdb_toolkit.constants import d1to3, dssp_mapper, res_weights
@@ -20,7 +21,7 @@ def split_residues_surface_boundary_core(pdb_path):
     p = PDBParser()
     structure = p.get_structure(pdb_path, pdb_path)
     model = structure[0]
-    dssp = DSSP(model, pdb_path, acc_array='Wilke')
+    dssp = DSSP(model, pdb_path, acc_array='Wilke', dssp='mkdssp')
 
     data = []
     for dssp_res in dssp:

@@ -71,7 +71,7 @@ python -m unittest tests/test_editor.py
 ```
 
 ```commandline
-python -m unittest tests/test_parser.py```
+python -m unittest tests/test_parser.py
 ```
 ## Usage
 

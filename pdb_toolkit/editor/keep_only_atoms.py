@@ -20,6 +20,9 @@ def keep_only_atom_lines(in_pdb_file, out_pdb_file=None):
         lines = f.readlines()
         for line in lines:
             if line.lower().startswith("atom"):
+                line = list(line)
+                line[20] = " "
+                line = "".join(line)
                 lines_to_keep.append(line)
 
     if out_pdb_file is None:
