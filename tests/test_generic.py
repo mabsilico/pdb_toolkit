@@ -108,3 +108,6 @@ class TestGeneric(unittest.TestCase):
                 expct_lines = f2.readlines()
             self.assertEqual(out_lines, expct_lines)
 
+        
+if __name__ == '__main__':
+    unittest.main()
