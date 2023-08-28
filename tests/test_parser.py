@@ -145,3 +145,9 @@ class TestParser(unittest.TestCase):
     #                                        first_occurrence=param1, different_chain_only=param2)
     #             self.assertEqual(expected_lens[i], len(ls))
     #             i += 1
+
+
+
+        
+if __name__ == '__main__':
+    unittest.main()

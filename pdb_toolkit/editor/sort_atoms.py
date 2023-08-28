@@ -22,7 +22,6 @@ def sort_atoms(in_pdb_file, out_pdb_file=None):
             for residue in chain:
                 residue.child_list.sort()
 
-
     # save the new structure
     if not out_pdb_file:
         out_pdb_file = in_pdb_file
@@ -30,3 +29,25 @@ def sort_atoms(in_pdb_file, out_pdb_file=None):
     io = PDBIO()
     io.set_structure(structure)
     io.save(out_pdb_file)
+    
+    # in case atoms bypassed 99999 for HUGE PDBs fix it 
+    th = 99999
+    
+    # Read an filter 
+    lines_to_keep = []
+    with open(out_pdb_file, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            line_ls = list(line)
+            if line.startswith("ATOM"):
+                atom_ser_num = int(line[6:12])
+                if atom_ser_num > th:
+                    line_ls = line_ls[0:6]+list(str(th))+line_ls[12:]
+                line_ls[20] = " "
+                final_line = "".join(line_ls)
+                lines_to_keep.append(final_line)
+
+    # Write
+    with open(out_pdb_file, "w") as f:
+        for line in lines_to_keep:
+            f.write(line)
