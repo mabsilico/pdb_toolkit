@@ -9,8 +9,7 @@ the library is divided into 3 packages:
 or concatenating a list of pdbs or aligning a pdb on another pdb or ...
 * **editor**: where the tools are dedicated to edit a pdb file for instance :
 fixing/repairing a pdb, protonating a pdb, keeping only ATOM lines, sorting atoms, etc.
-* **parser**: where the tools are dedicated to extract relevant information from a pdb,
-such as extracting a specific chain, getting the sequence,
+* **parser**: where the tools are dedicated to extract relevant information from a pdb, such as extracting a specific chain, getting the sequence,
 
 ## Requirements
 
@@ -24,30 +23,36 @@ such as extracting a specific chain, getting the sequence,
 [//]: # (| python | passed 	✅ | passed 	✅ | passed 	✅ |     | Failed 🔴 |)
 
 
-1) **python3**
+1) **python ≥ 3.6**
 2) **gcc** ```conda install -c conda-forge gcc```
-2) **pymol**
-   - < 2.5 (recommended)``` conda install -c schrodinger pymol ```
-   - \>= 2.5 ``` conda install -c conda-forge -c schrodinger pymol-bundle```
-3) **pdbfixer** ``` conda install -c conda-forge pdbfixer ```
-4) **biopython**  ``` conda install -c conda-forge biopython
-5) **dssp**  ```conda install -c salilab dssp```
-5) **reduce** ``` conda install -c mx reduce ```
-6) **scikit-learn** ```conda install -c conda-forge scikit-learn```
-7) **wget**  ```pip install wget```
+3) **dssp**  ```conda install -c salilab dssp```
+4) **pdbfixer** ``` conda install -c conda-forge pdbfixer ```
+5) **biopython**  ``` conda install -c conda-forge biopython```
+
+6) **reduce** ``` conda install -c mx reduce ```
+7) **scikit-learn** ```conda install -c conda-forge scikit-learn```
+8) **pymol** 
+    - ``` conda install -c conda-forge pymol-open-source ```
+
+> Please make sure to install the suitable pymol version with its dependencies for your environment
+> conda install -c schrodinger pymol
+> conda install -c "schrodinger/label/alpha" pymol
+> conda install -c "schrodinger/label/archive" pymol
+> conda install -c "schrodinger/label/pending" pymol
+
 
 ## Installation
-git:
+**git**:
 ```
 git clone https://github.com/raoufkeskes/pdb_toolkit && pip install ./pdb_toolkit/ && rm -rf ./pdb_toolkit/
 ```
 
-pip:
+**pip**:
 ```
 pip install pdb-toolkit
 ```
 
-conda:
+**conda**:
 ```
 TO DO
 ```
