@@ -130,7 +130,7 @@ dmypy.json
 
 .idea/
 
-tmp.py
+*tmp*
 
 commit_msg.txt
 
