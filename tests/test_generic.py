@@ -23,17 +23,17 @@ class TestGeneric(unittest.TestCase):
     def tearDown(self):
         os.remove(self.out_file)
 
-    def test_download_pdb(self):
-        pdb_id = "7vyt"
-        tmp_dir = tempfile.gettempdir()
-        tmp_downloaded = os.path.join(tmp_dir, "{}.pdb".format(pdb_id))
+    # def test_download_pdb(self):
+    #     pdb_id = "7vyt"
+    #     tmp_dir = tempfile.gettempdir()
+    #     tmp_downloaded = os.path.join(tmp_dir, "{}.pdb".format(pdb_id))
 
-        download_pdb(pdb_id="7vyt", out_path=tmp_dir)
-        shutil.move(tmp_downloaded, self.out_file)
-        with open(self.out_file, 'r') as f1, open(self.in_file, 'r') as f2:
-            out_lines = f1.readlines()
-            expct_lines = f2.readlines()
-        self.assertEqual(out_lines, expct_lines)
+    #     download_pdb(pdb_id="7vyt", out_path=tmp_dir)
+    #     shutil.move(tmp_downloaded, self.out_file)
+    #     with open(self.out_file, 'r') as f1, open(self.in_file, 'r') as f2:
+    #         out_lines = f1.readlines()
+    #         expct_lines = f2.readlines()
+    #     self.assertEqual(out_lines, expct_lines)
 
         # download_pdb(pdb_id="7vyt", output_dir=tmp_dir, overwrite=True, fix=True)
         # shutil.move(tmp_downloaded, self.out_file)

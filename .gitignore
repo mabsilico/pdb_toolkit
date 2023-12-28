@@ -137,3 +137,6 @@ commit_msg.txt
 *.yml
 
 obsolete
+
+tests/testing_data/7nd4
+tests/testing_data/7wsl

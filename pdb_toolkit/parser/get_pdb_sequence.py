@@ -6,6 +6,7 @@
 import os.path
 import tempfile
 import uuid
+import shutil
 
 from Bio.PDB import PDBParser
 from pdb_toolkit.constants import d3to1
@@ -40,7 +41,8 @@ def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=False):
     # remove all the noisy lines such as HETATOMS etc.
     tmp_in_pdb_file = os.path.join(tmp_path, os.path.basename(in_pdb_file))
     keep_only_atom_lines(in_pdb_file, tmp_in_pdb_file)
-
+    
+    
     structure = parser.get_structure(id=tmp_in_pdb_file,
                                      file=tmp_in_pdb_file)
     if chains:
@@ -66,7 +68,10 @@ def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=False):
             # concat residues
             sequences[chain_name] = "".join(sequences[chain_name])[:res_pos]
         break
-
+    
+    
+    shutil.rmtree(tmp_path)
+    
     if ignore_missing:
         return {chain: seq.replace("_", "") for chain, seq in sequences.items()}
 
