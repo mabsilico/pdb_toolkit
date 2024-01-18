@@ -7,7 +7,7 @@ with open('README.md', 'r') as f:
 
 setup(
     name='pdb-toolkit',
-    version='0.3.7',
+    version='0.3.8',
     packages=find_packages(),
     url='https://github.com/raoufkeskes/pdb_toolkit',
     license='MIT Licence',

@@ -37,4 +37,7 @@ def align(src_pdb_file: str, dst_pdb_file: str, src_chain: str = None,
 
     # save
     cmd.save(out_pdb_file, selection="src_pdb")
+    
+    cmd.reinitialize()
+    
     return rmsd
