@@ -50,7 +50,7 @@ def split_residues_surface_boundary_core(pdb_path):
         data.append((pos, res, d1to3[res], dssp_mapper[ss], res_weights[d1to3[res]] * acc))
 
     core, boundary, surface = [], [], []
-    for i, (dssp_index, res, _, x, score) in enumerate(data):
+    for i, (_, res, _, x, score) in enumerate(data):
         if (score <= 25 and x == 'L') or (score <= 15 and (x == 'H' or x == 'S')):
             core.append(sorted_residues[i])
         elif (25 < score < 40 and x == 'L') or (15 < score < 60 and (x == 'H' or x == 'S')):

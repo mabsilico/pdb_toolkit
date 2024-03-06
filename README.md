@@ -23,8 +23,9 @@ fixing/repairing a pdb, protonating a pdb, keeping only ATOM lines, sorting atom
 [//]: # (| python | passed 	✅ | passed 	✅ | passed 	✅ |     | Failed 🔴 |)
 
 
-1) **python ≥ 3.6**
+1) **python 3**
 2) **gcc** ```conda install -c conda-forge gcc```
+3) **boost** : ```conda install -c conda-forge boost=1.73.0``` (for dssp3)
 3) **dssp**  ```conda install -c salilab dssp```
 4) **pdbfixer** ``` conda install -c conda-forge pdbfixer ```
 5) **biopython**  ``` conda install -c conda-forge biopython```
@@ -33,6 +34,8 @@ fixing/repairing a pdb, protonating a pdb, keeping only ATOM lines, sorting atom
 7) **scikit-learn** ```conda install -c conda-forge scikit-learn```
 8) **pymol** 
     - ``` conda install -c conda-forge pymol-open-source ```
+
+
 
 > Please make sure to install the suitable pymol version with its dependencies for your environment
 > conda install -c schrodinger pymol

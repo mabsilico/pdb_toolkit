@@ -55,7 +55,7 @@ def get_pdb_sequence(in_pdb_file, chains=None, ignore_missing=False):
             if chains and chain_name not in chains:
                 continue
             # get last residue of the chain to fix the sequence length
-            last_pos = ([res for res in chain.get_residues()][-1]).get_id()[1]
+            last_pos = max([res.get_id()[1] for res in chain.get_residues()])
             sequences[chain.get_id()] = ["_"] * last_pos
             for residue in chain:
                 # fetch the residue
